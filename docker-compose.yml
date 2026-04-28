@@ -1,0 +1,23 @@
+services:
+  node-api:
+    build: ./node-api
+    ports:
+      - "${NODE_PORT}:${NODE_PORT}"
+    env_file:
+      - ./node-api/.env
+    environment:
+      - PYTHON_LLM_URL=http://python-llm:${PYTHON_PORT}
+    volumes:
+      - node-data:/app/data
+    depends_on:
+      - python-llm
+
+  python-llm:
+    build: ./python-llm
+    ports:
+      - "${PYTHON_PORT}:${PYTHON_PORT}"
+    env_file:
+      - ./python-llm/.env
+
+volumes:
+  node-data:
