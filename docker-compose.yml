@@ -10,7 +10,14 @@ services:
     volumes:
       - node-data:/app/data
     depends_on:
-      - python-llm
+      python-llm:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "docker-script/docker-healthcheck.js"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
   python-llm:
     build: ./python-llm
@@ -18,6 +25,12 @@ services:
       - "${PYTHON_PORT}:${PYTHON_PORT}"
     env_file:
       - ./python-llm/.env
+    healthcheck:
+      test: ["CMD", "python", "docker-script/docker-healthcheck.py"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
 
 volumes:
   node-data:

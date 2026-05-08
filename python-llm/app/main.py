@@ -12,6 +12,11 @@ app = FastAPI(title="LLM Summarizer", version="1.0.0")
 app.include_router(router)
 
 
-@app.get("/")
+@app.get("/health")
 async def health() -> JSONResponse:
+    return JSONResponse({"status": "ok", "service": "python-llm"})
+
+
+@app.get("/")
+async def root() -> JSONResponse:
     return JSONResponse({"message": "API is running"})

@@ -22,7 +22,11 @@ RUN addgroup --system app && adduser --system --ingroup app app
 USER app
 
 COPY app ./app
+COPY docker-script ./docker-script
 
 EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=25s --retries=3 \
+  CMD python docker-script/docker-healthcheck.py
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

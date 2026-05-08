@@ -1,3 +1,5 @@
+import { HttpError } from '../../errors/HttpError'
+
 const SUPPORTED = ['pt', 'en', 'es'] as const;
 export type LangValue = typeof SUPPORTED[number];
 
@@ -6,7 +8,7 @@ export class Lang {
 
   static create(value: string): Lang {
     if (!SUPPORTED.includes(value as LangValue)) {
-      throw new Error('Language not supported');
+      throw new HttpError(400, 'Language not supported')
     }
     return new Lang(value as LangValue);
   }

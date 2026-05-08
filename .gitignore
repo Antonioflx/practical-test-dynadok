@@ -6,4 +6,4 @@ data/
 .env
 **.DS_Store
 .vscode/
-.cursormemories/
+.memories/

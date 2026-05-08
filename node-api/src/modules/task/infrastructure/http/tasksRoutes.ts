@@ -46,7 +46,7 @@ const controller = new TaskController()
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post('/', (req, res) => controller.create(req, res))
+router.post('/', (req, res, next) => void controller.create(req, res, next))
 
 /**
  * @openapi
@@ -64,7 +64,7 @@ router.post('/', (req, res) => controller.create(req, res))
  *               items:
  *                 $ref: '#/components/schemas/Task'
  */
-router.get('/', (req, res) => controller.getAll(req, res))
+router.get('/', (req, res, next) => void controller.getAll(req, res, next))
 
 /**
  * @openapi
@@ -95,7 +95,7 @@ router.get('/', (req, res) => controller.getAll(req, res))
  *             example:
  *               error: Task not found
  */
-router.get('/:id', (req, res) => controller.getById(req, res))
+router.get('/:id', (req, res, next) => void controller.getById(req, res, next))
 
 /**
  * @openapi
@@ -131,6 +131,6 @@ router.get('/:id', (req, res) => controller.getById(req, res))
  *             example:
  *               error: Task not found
  */
-router.delete('/:id', (req, res) => controller.remove(req, res))
+router.delete('/:id', (req, res, next) => void controller.remove(req, res, next))
 
 export default router
